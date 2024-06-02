@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Flex, Spacer } from '@chakra-ui/react'
+import { AuthContext } from "../context/AuthContext";
 
-import "./Navbar.css"
+function Navbar() {
+  const { isAuthenticated, email, logout } = useContext(AuthContext);
 
-function Navbar(){
-    return(
- <Flex  id="navbar" p={3} >
- <Spacer/>
-  <Link to="/">Home</Link>
- <Link to="/login">Login</Link>
- <Link to="/productDetails">ProductDetails</Link>
- <Spacer/>
-</Flex>
-    )
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px", backgroundColor: "#f0f0f0" }}>
+      <div>
+        <Link to="/">Home</Link>
+        {isAuthenticated && <p style={{ margin: "0", marginLeft: "10px" }}>{email}</p>}
+      </div>
+      <div>
+        {isAuthenticated ? (
+          <button onClick={logout} style={{ padding: "10px", borderRadius: "5px", border: "none", backgroundColor: "#dc3545", color: "#fff", cursor: "pointer" }}>Logout</button>
+        ) : (
+          <Link to="/login" style={{ textDecoration: "none", padding: "10px", borderRadius: "5px", border: "1px solid #007bff", backgroundColor: "#007bff", color: "#fff", cursor: "pointer" }}>Login</Link>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Navbar;
