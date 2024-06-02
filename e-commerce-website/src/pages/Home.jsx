@@ -8,7 +8,7 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
-import { useSearchParams } from "react-router-dom";
+
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -18,7 +18,7 @@ function Home() {
   const [filter, setFilter] = useState("");
 
   const getProducts = (sort, filter) => {
-    let url = `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-products?sort=price&order=${sort}&filter=category=order=${filter}`;
+    let url = `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-products?sort=price&order=${sort}&filter=${filter}`;
 
     axios({
       method: "get",
@@ -39,7 +39,7 @@ function Home() {
       });
   };
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  
 
   useEffect(() => {
     getProducts(sort, filter);
@@ -80,10 +80,10 @@ function Home() {
         onChange={handleFilter}
       >
         <option value="">All</option>
-        <option value="Men">Men</option>
-        <option value="Women">Women</option>
-        <option value="Kids">Kids</option>
-        <option value="Home Decor">Home Decor</option>
+        <option value="men">Men</option>
+        <option value="women">Women</option>
+        <option value="kids">Kids</option>
+        <option value="homedecor">Home Decor</option>
       </Select>
 
       {loading ? (
@@ -112,11 +112,10 @@ function Home() {
                 </Text>
                 <Text>{product.category}</Text>
                 <Text>${product.price}</Text>
-                <Button colorScheme="red" mt={4}>
+                <Button colorScheme="red" mt={4} onClick={() => {
+                  window.location.href = `/${product.id}`
+                }}>
                   More Details
-                </Button>
-                <Button colorScheme="green" mt={4} ml={2}>
-                  Add to Cart
                 </Button>
               </Box>
             ))}

@@ -10,7 +10,7 @@ function AllRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
-      <Route path="/productDetails" element={<ProductDetails />} />
+      <Route path="/:Id" element={<ProductDetails />} />
     </Routes>
   );
 }
